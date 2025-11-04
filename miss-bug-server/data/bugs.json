@@ -1,0 +1,74 @@
+[
+  {
+    "_id": "a1b2c3",
+    "title": "User cannot login",
+    "severity": 2,
+    "createdAt": 1672312459454
+  },
+  {
+    "_id": "d4e5f6",
+    "title": "Page not loading on Safari",
+    "severity": 1,
+    "createdAt": 1672412459454
+  },
+  {
+    "_id": "g7h8i9",
+    "title": "API returns 500 error",
+    "severity": 3,
+    "createdAt": 1672512459454
+  },
+  {
+    "_id": "j0k1l2",
+    "title": "Payment gateway timeout",
+    "severity": 4,
+    "createdAt": 1672612459454
+  },
+  {
+    "_id": "m3n4o5",
+    "title": "Cannot create new board",
+    "severity": 2,
+    "createdAt": 1672712459454
+  },
+  {
+    "_id": "p6q7r8",
+    "title": "Search feature not working",
+    "severity": 1,
+    "createdAt": 1672812459454
+  },
+  {
+    "_id": "s9t0u1",
+    "title": "Cards not saving order",
+    "severity": 2,
+    "createdAt": 1672912459454
+  },
+  {
+    "_id": "v2w3x4",
+    "title": "Email notifications missing",
+    "severity": 1,
+    "createdAt": 1673012459454
+  },
+  {
+    "_id": "y5z6a7",
+    "title": "Slow response on dashboard",
+    "severity": 2,
+    "createdAt": 1673112459454
+  },
+  {
+    "_id": "b8c9d0",
+    "title": "Labels not applied correctly",
+    "severity": 3,
+    "createdAt": 1673212459454
+  },
+  {
+    "_id": "e1f2g3",
+    "title": "Cannot delete workspace",
+    "severity": 4,
+    "createdAt": 1673312459454
+  },
+  {
+    "_id": "h4i5j6",
+    "title": "Drag and drop broken",
+    "severity": 3,
+    "createdAt": 1673412459454
+  }
+]
