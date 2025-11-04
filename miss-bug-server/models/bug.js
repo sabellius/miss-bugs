@@ -59,9 +59,8 @@ class Bug {
     const bug = this.findById(id);
     console.log('🚀 ~ Bug ~ update ~ bug:', bug);
     if (bug) {
-      bug.title = data.title || bug.title;
-      bug.content = data.content || bug.content;
-      bug.author = data.author || bug.author;
+      bug.title = data.title;
+      bug.severity = data.severity;
       return bug;
     }
     return null;
