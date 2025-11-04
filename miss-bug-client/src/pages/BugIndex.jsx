@@ -6,13 +6,15 @@ import { useEffect } from 'react';
 
 export function BugIndex() {
   const [bugs, setBugs] = useState([]);
+  const [filterBy, setFilterBy] = useState(bugService.defaultFilter());
 
   useEffect(() => {
     loadBugs();
-  }, []);
+  }, [filterBy]);
 
   async function loadBugs() {
-    const bugs = await bugService.query();
+    let bugs = await bugService.query();
+    bugs = bugService.filterBugs(bugs, filterBy);
     setBugs(bugs);
   }
 
@@ -62,10 +64,36 @@ export function BugIndex() {
     }
   }
 
+  function handleChange(e) {
+    const { name, value } = e.target;
+    setFilterBy(prevFilterBy => ({
+      ...prevFilterBy,
+      [name]: name === 'severity' ? Number(value) : value,
+    }));
+  }
+
   return (
     <section>
       <h3>Bugs App</h3>
       <main>
+        <form>
+          <label htmlFor="title">Title:</label>
+          <input
+            type="text"
+            name="title"
+            id="title"
+            onChange={handleChange}
+            value={filterBy.title}
+          />
+          <label htmlFor="severity">Severity:</label>
+          <input
+            type="number"
+            name="severity"
+            id="severity"
+            value={filterBy.severity}
+            onChange={handleChange}
+          />
+        </form>
         <button onClick={onAddBug}>Add Bug ⛐</button>
         <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
       </main>
