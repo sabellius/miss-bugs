@@ -95,6 +95,12 @@ export function BugIndex() {
           />
         </form>
         <button onClick={onAddBug}>Add Bug ⛐</button>
+        <a
+          href="http://localhost:3030/bugs/download"
+          target="_blank"
+          rel="noreferrer">
+          Download bugs
+        </a>
         <BugList bugs={bugs} onRemoveBug={onRemoveBug} onEditBug={onEditBug} />
       </main>
     </section>

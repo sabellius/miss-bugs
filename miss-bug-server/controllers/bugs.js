@@ -41,6 +41,14 @@ export function deleteBug(req, res) {
   }
 }
 
+export function downloadBugs(_, res) {
+  const pdf = Bug.toPdf();
+  res.setHeader('Content-Type', 'application/pdf');
+  res.setHeader('Content-Disposition', 'attachment; filename=bugs.pdf');
+  pdf.pipe(res);
+  pdf.end();
+}
+
 function notFound(res) {
   res.status(404).send('Not Found');
 }
@@ -51,4 +59,5 @@ export default {
   createBug,
   updateBug,
   deleteBug,
+  downloadBugs,
 };

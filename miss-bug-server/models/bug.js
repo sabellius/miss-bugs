@@ -1,4 +1,5 @@
 import fs from 'fs';
+import PDFDocument from 'pdfkit';
 
 const DATA_FILE = 'data/bugs.json';
 const BACKUP_FILE = 'data/bugs.json.backup';
@@ -73,6 +74,24 @@ class Bug {
       return true;
     }
     return false;
+  }
+
+  static toPdf() {
+    const doc = new PDFDocument();
+
+    doc.text('Bugs Report');
+    doc.moveDown();
+
+    this.bugs.forEach(bug => {
+      doc.fontSize(10);
+      doc.text(`ID: ${bug._id}`);
+      doc.text(`Title: ${bug.title}`);
+      doc.text(`Severity: ${bug.severity}`);
+      doc.text(`Created: ${new Date(bug.createdAt).toLocaleDateString()}`);
+      doc.moveDown();
+    });
+
+    return doc;
   }
 }
 
