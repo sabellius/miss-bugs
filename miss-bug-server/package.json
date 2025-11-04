@@ -8,7 +8,7 @@
   "main": "app.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js"
+    "start": "nodemon app.js --watch ./ --ext js,json --ignore node_modules/ & cd ../miss-bug-client && npm run dev"
   },
   "dependencies": {
     "cookie-parser": "^1.4.7",
