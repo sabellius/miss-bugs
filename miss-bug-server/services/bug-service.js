@@ -23,7 +23,7 @@ function loadData() {
 function saveData() {
   try {
     fs.writeFileSync(DATA_FILE, JSON.stringify(bugs, null, 2), 'utf-8');
-    console.log('✅ Bugs saved to file');
+    console.log('Bugs saved to file');
   } catch (error) {
     console.error('Error saving bugs:', error);
   }
@@ -90,4 +90,13 @@ function toPdf() {
 
 loadData();
 
-export { findAll, findById, create, update, remove, toPdf, saveData, loadData };
+export const bugService = {
+  findAll,
+  findById,
+  create,
+  update,
+  remove,
+  toPdf,
+  saveData,
+  loadData,
+};

@@ -1,13 +1,12 @@
-import Bug from '../services/bug.service.js';
+import { bugService } from '../services/bug-service.js';
 
 export function getBugs(_, res) {
-  const bugs = Bug.findAll();
+  const bugs = bugService.findAll();
   res.json(bugs);
 }
 
 export function getBug(req, res) {
-  console.log('🚀 ~ getBug ~ req:', req);
-  const bug = Bug.findById(req.params.id);
+  const bug = bugService.findById(req.params.id);
   if (bug) {
     res.json(bug);
   } else {
@@ -16,15 +15,15 @@ export function getBug(req, res) {
 }
 
 export function createBug(req, res) {
-  const newBug = Bug.create(req.body);
-  Bug.saveData();
+  const newBug = bugService.create(req.body);
+  bugService.saveData();
   res.status(201).json(newBug);
 }
 
 export function updateBug(req, res) {
-  const updatedBug = Bug.update(req.params.id, req.body);
+  const updatedBug = bugService.update(req.params.id, req.body);
   if (updatedBug) {
-    Bug.saveData();
+    bugService.saveData();
     res.json(updatedBug);
   } else {
     notFound(res);
@@ -32,9 +31,9 @@ export function updateBug(req, res) {
 }
 
 export function deleteBug(req, res) {
-  const success = Bug.delete(req.params.id);
+  const success = bugService.delete(req.params.id);
   if (success) {
-    Bug.saveData();
+    bugService.saveData();
     res.status(204).send();
   } else {
     notFound(res);
@@ -42,7 +41,7 @@ export function deleteBug(req, res) {
 }
 
 export function downloadBugs(_, res) {
-  const pdf = Bug.toPdf();
+  const pdf = bugService.toPdf();
   res.setHeader('Content-Type', 'application/pdf');
   res.setHeader('Content-Disposition', 'attachment; filename=bugs.pdf');
   pdf.pipe(res);
