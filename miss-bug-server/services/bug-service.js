@@ -36,7 +36,7 @@ function findAll(options = {}) {
     sortBy = 'createdAt',
     sortDir = 'desc',
     pageIdx = 0,
-    pageSize = 2,
+    pageSize = 10,
     txt,
     minSeverity,
     labels,
