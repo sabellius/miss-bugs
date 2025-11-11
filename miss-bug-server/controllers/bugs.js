@@ -1,5 +1,4 @@
 import { bugService } from '../services/bug-service.js';
-import { sortBugs, paginateBugs } from '../services/utils-service.js';
 
 const VALID_SORT_FIELDS = [
   'title',
@@ -33,20 +32,22 @@ function validateSortParams(sortBy, sortDir, res) {
 }
 
 export function getBugs(req, res) {
-  const { sortBy, sortDir, pageIdx, pageSize } = req.query;
+  const { sortBy, sortDir, pageIdx, pageSize, txt, minSeverity, labels } =
+    req.query;
 
   if (!validateSortParams(sortBy, sortDir, res)) {
     return;
   }
 
-  let bugs = bugService.findAll();
-  let result;
-  const paginated = paginateBugs(
-    bugs,
-    Number(pageIdx) || 0,
-    Number(pageSize) || 2
-  );
-  result = sortBugs(paginated, sortBy, sortDir);
+  const result = bugService.findAll({
+    sortBy,
+    sortDir,
+    pageIdx,
+    pageSize,
+    txt,
+    minSeverity,
+    labels,
+  });
 
   res.json(result);
 }

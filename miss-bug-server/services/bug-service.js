@@ -29,30 +29,40 @@ function saveData() {
   }
 }
 
+import { sortBugs, paginateBugs, filterBugs } from './utils-service.js';
+
 function findAll(options = {}) {
   const {
     sortBy = 'createdAt',
     sortDir = 'desc',
     pageIdx = 0,
     pageSize = 2,
+    txt,
+    minSeverity,
+    labels,
   } = options;
 
-  const paginated = bugs.slice(
-    Number(pageIdx) * Number(pageSize),
-    Number(pageIdx) * Number(pageSize) + Number(pageSize)
-  );
+  let result = bugs;
 
-  const sorted = paginated.sort((a, b) => {
-    const aValue = a[sortBy];
-    const bValue = b[sortBy];
+  let labelsArr = labels;
+  if (typeof labels === 'string') {
+    labelsArr = labels
+      .split(',')
+      .map(l => l.trim())
+      .filter(Boolean);
+  }
 
-    if (sortDir === 'asc') {
-      return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
-    }
-    return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
+  result = filterBugs(result, {
+    txt: txt ? txt.toLowerCase() : undefined,
+    minSeverity,
+    labels: labelsArr,
   });
 
-  return sorted;
+  result = sortBugs(result, sortBy, sortDir);
+
+  result = paginateBugs(result, Number(pageIdx) || 0, Number(pageSize) || 2);
+
+  return result;
 }
 
 function findById(id) {
