@@ -60,7 +60,7 @@ function findAll(options = {}) {
 
   result = sortBugs(result, sortBy, sortDir);
 
-  result = paginateBugs(result, Number(pageIdx) || 0, Number(pageSize) || 2);
+  result = paginateBugs(result, Number(pageIdx) || 0, Number(pageSize) || 10);
 
   return result;
 }
