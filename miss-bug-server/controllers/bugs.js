@@ -1,4 +1,5 @@
 import { bugService } from '../services/bug-service.js';
+import { sortBugs, paginateBugs } from '../services/utils-service.js';
 
 const VALID_SORT_FIELDS = [
   'title',
@@ -38,8 +39,16 @@ export function getBugs(req, res) {
     return;
   }
 
-  const bugs = bugService.findAll({ sortBy, sortDir, pageIdx, pageSize });
-  res.json(bugs);
+  let bugs = bugService.findAll();
+  let result;
+  const paginated = paginateBugs(
+    bugs,
+    Number(pageIdx) || 0,
+    Number(pageSize) || 2
+  );
+  result = sortBugs(paginated, sortBy, sortDir);
+
+  res.json(result);
 }
 
 export function getBug(req, res) {
