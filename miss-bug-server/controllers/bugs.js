@@ -32,13 +32,13 @@ function validateSortParams(sortBy, sortDir, res) {
 }
 
 export function getBugs(req, res) {
-  const { sortBy, sortDir } = req.query;
+  const { sortBy, sortDir, pageIdx, pageSize } = req.query;
 
   if (!validateSortParams(sortBy, sortDir, res)) {
     return;
   }
 
-  const bugs = bugService.findAll({ sortBy, sortDir });
+  const bugs = bugService.findAll({ sortBy, sortDir, pageIdx, pageSize });
   res.json(bugs);
 }
 

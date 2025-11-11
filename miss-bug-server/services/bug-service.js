@@ -30,9 +30,19 @@ function saveData() {
 }
 
 function findAll(options = {}) {
-  const { sortBy = 'createdAt', sortDir = 'desc' } = options;
+  const {
+    sortBy = 'createdAt',
+    sortDir = 'desc',
+    pageIdx = 0,
+    pageSize = 2,
+  } = options;
 
-  const sorted = [...bugs].sort((a, b) => {
+  const paginated = bugs.slice(
+    Number(pageIdx) * Number(pageSize),
+    Number(pageIdx) * Number(pageSize) + Number(pageSize)
+  );
+
+  const sorted = paginated.sort((a, b) => {
     const aValue = a[sortBy];
     const bValue = b[sortBy];
 
