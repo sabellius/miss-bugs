@@ -1,4 +1,4 @@
-import Bug from '../models/bug.js';
+import Bug from '../services/bug.service.js';
 
 export function getBugs(_, res) {
   const bugs = Bug.findAll();
