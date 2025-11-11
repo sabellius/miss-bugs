@@ -1,7 +1,44 @@
 import { bugService } from '../services/bug-service.js';
 
-export function getBugs(_, res) {
-  const bugs = bugService.findAll();
+const VALID_SORT_FIELDS = [
+  'title',
+  'severity',
+  'createdAt',
+  '_id',
+  'description',
+];
+const VALID_SORT_DIRS = ['asc', 'desc'];
+
+function validateSortParams(sortBy, sortDir, res) {
+  if (sortBy && !VALID_SORT_FIELDS.includes(sortBy)) {
+    res.status(400).json({
+      error: `Invalid sortBy field: ${sortBy}. Valid fields: ${VALID_SORT_FIELDS.join(
+        ', '
+      )}`,
+    });
+    return false;
+  }
+
+  if (sortDir && !VALID_SORT_DIRS.includes(sortDir)) {
+    res.status(400).json({
+      error: `Invalid sortDir: ${sortDir}. Valid values: ${VALID_SORT_DIRS.join(
+        ', '
+      )}`,
+    });
+    return false;
+  }
+
+  return true;
+}
+
+export function getBugs(req, res) {
+  const { sortBy, sortDir } = req.query;
+
+  if (!validateSortParams(sortBy, sortDir, res)) {
+    return;
+  }
+
+  const bugs = bugService.findAll({ sortBy, sortDir });
   res.json(bugs);
 }
 

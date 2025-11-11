@@ -29,8 +29,20 @@ function saveData() {
   }
 }
 
-function findAll() {
-  return bugs;
+function findAll(options = {}) {
+  const { sortBy = 'createdAt', sortDir = 'desc' } = options;
+
+  const sorted = [...bugs].sort((a, b) => {
+    const aValue = a[sortBy];
+    const bValue = b[sortBy];
+
+    if (sortDir === 'asc') {
+      return aValue > bValue ? 1 : aValue < bValue ? -1 : 0;
+    }
+    return aValue < bValue ? 1 : aValue > bValue ? -1 : 0;
+  });
+
+  return sorted;
 }
 
 function findById(id) {
